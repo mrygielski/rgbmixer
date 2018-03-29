@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <script src="jquery.min.js"></script>
+  <script src="color.mixer.js"></script>
+  <meta charset=utf-8 />
+  <title>Color mixer</title>
+
+<style id="jsbin-css">
+.color {
+  width: 100px;
+  height: 100px;
+  border: 1px solid #ccc;
+  margin: 10px;
+  background: #fff;
+  font-family: Verdana, Arial;
+  font-size: 12px;
+  text-align: center;
+  line-height: 100px;
+}
+</style>
+</head>
+<body>
+  <div style='display: table'><div style='display: table-cell'><div class="color" id="color1">Color1</div></div><div style='display: table-cell'><input type='text' value='#ff0000' id='color1_value'></div></div>
+  <div style='display: table'><div style='display: table-cell'><div class="color" id="color2">Color2</div></div><div style='display: table-cell'><input type='text' value='#00ff00' id='color2_value'></div></div>
+  
+  <div style='display: table'><div style='display: table-cell'><div class="color" id="color3">Mix</div></div><div style='display: table-cell'><input type='submit' id='mixer_button' value='Mix color'></div></div>
+  
+<script>
+
+	function RGBMix(color1, color2) {
+	  var r = (color1.red() + color2.red()) / 1;
+	  var g = (color1.green() + color2.green()) / 1;
+	  var b = (color1.blue() + color2.blue()) / 1;
+	  
+	  return Color().rgb([r, g, b]);  
+	}
+
+	function Mixer() {
+
+		var color1 = Color($('#color1_value').val());
+		var color2 = Color($('#color2_value').val());
+		var mix = RGBMix(color1, color2);
+
+		console.log(color1.hexString());
+		console.log(color2.hexString());
+		console.log(mix.hexString());
+
+		$('#color1').css('backgroundColor', color1.hexString());
+		$('#color2').css('backgroundColor', color2.hexString());
+		$('#color3').css('backgroundColor', mix.hexString());
+
+	}
+
+
+	$('#mixer_button').click(function() {
+
+		Mixer();
+	  
+	});
+
+	Mixer();
+	
+</script>
+</body>
+</html>
